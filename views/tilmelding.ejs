@@ -1,0 +1,58 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+
+
+<main id="hold_reg">
+<% results.forEach(result => { %>
+<div class="hold_div">
+ <h2><%= result.style_title%></h2>
+ <h3><%= result.age_name%> <%= result.level_name%></h3> 
+ <p>Instruktør: <%= result.instructor_name%></p>
+ <p> DKK <%= result.price%></p>
+
+
+ <a href="#" class="button addClass" onclick="swal('Sådan!', 'Du har tilmeldt dig et hold!', 'success');" data-id="<%= result.id%>">Tilmeld hold</a>
+ 
+  
+</div>
+<%}); %>
+
+
+</main>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<script type="text/javascript">
+// let test = document.getElementsByClassName('addClass').addEventListener('click', function(event){
+// 		event.preventDefault();
+// 		let id = event.target.dataset.id;
+// 		fetch('/tilmelding', {
+// 			method: 'POST',
+// 			headers: {
+//                     'Content-Type': 'application/json; charset=utf-8'
+//                 },
+// 			body: JSON.stringify({id})
+
+// 		});
+		
+// 	});
+
+var classname = document.getElementsByClassName("addClass");
+var myFunction = function() {
+    var id = this.getAttribute("data-id");
+	fetch('/tilmelding', {
+			method: 'POST',
+			headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+			body: JSON.stringify({id})
+
+		});
+};
+
+for (var i = 0; i < classname.length; i++) {
+    classname[i].addEventListener('click', myFunction, false);
+};
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

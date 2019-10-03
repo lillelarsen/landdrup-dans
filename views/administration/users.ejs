@@ -1,0 +1,93 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+    <section>
+
+        <a href="#" onclick="openForm()">Opret</a>
+        <table>
+            <th>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>ID</th>
+                    <th>E-mail</th>
+                    <th>Password</th>
+                </tr>
+            </th>
+
+            <th>
+                <% results.forEach(result => { %>
+                <tr>
+                    <td>
+                        <i onclick="openUpdateForm(<%= result.id %>)" data-id="<%= result.id %>" data-category="agegroup" class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <i data-id="<%= result.id %>" data-category="users" class="fas fa-trash-alt"></i>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.id %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.email %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        **********
+                    </td>
+
+                </tr>
+                <% }); %>
+            </th>
+
+        </table>
+
+    </section>
+    <!-- Pop-up til tilføj alder -->
+    <div id="addTo" class="addForm">
+        <a href="" onclick="closeForm()"><i class="fas fa-times"></i></a>
+        <h2>Tilføj bruger</h2>
+        <form action="" method="post">
+            <label for="email">E-mail</label><input type="text" name="userEmail" id="email" placeholder="E-mail">
+            <label for="pass">Password</label><input type="password" name="password" id="pass" placeholder="Password">
+            <button type="submit">Gem bruger</button>
+        </form>
+    </div>
+    <!-- Pop-up til update af aldersgruppe -->
+    <div id="updateTo" class="updateForm">
+        <a href="" onclick="closeUpdateForm()"><i class="fas fa-times"></i></a>
+        <h2>Redigér bruger</h2>
+        <form class="formUpdateForm">
+            <input type="hidden" name="id" class="updateID">
+            <label for="email">E-mail</label><input type="text" name="emailUpdate" placeholder="Niveau navn">
+            <label for="pass">Password</label><input type="password" name="passUpdate" placeholder="Password">
+            <button type="submit">Gem bruger</button>
+        </form>
+    </div>
+</main>
+<script src="/scripts/deleteButtons.js" defer></script>
+<script>
+    document.querySelector('.formUpdateForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const data = {
+            'id' : this.id.value,
+            'email' : this.emailUpdate.value,
+            'password' : this.passUpdate.value
+        };
+
+        fetch('/admin/users', {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json; charset=utf-8'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload(true);
+            } else {
+                console.log('Noget gik galt');
+            }
+        })
+    });
+</script>
+<% include ../partials/after-footer.ejs %>

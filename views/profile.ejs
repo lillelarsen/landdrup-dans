@@ -1,0 +1,113 @@
+</main><% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<main tabindex="0" role="main" class="profileMain"> 
+
+    <!--En section over brugerens oplysninger--> 
+    <section>
+        <h1>Profil</h1>
+        <p>Medlemsnummer: <%= userInfo[0].fk_user %></p>
+        <p>Navn: <%= userInfo[0].first_name %> <%= userInfo[0].last_name %></p>
+        <p>Adresse: <%= userInfo[0].address %></p>
+        <p>Postnummer: <%= userInfo[0].zip_code %></p>
+        <p>By: <%= userInfo[0].city %></p>
+        <p>Tlf: <%= userInfo[0].phone %></p>
+        <p>Elev: <%= userInfo[0].students %></p>
+    </section>
+    
+    <!--Profil tabel over hvilke hold brugeren er tilmeldt-->
+    <section>
+        <h2><%= title %></h2> 
+        <table class="profil_table">
+            <tr>
+              <th>Afmeld</th>
+              <th>Hold nr</th>
+              <th>Hold</th>
+              <th>Niveau</th>
+              <th>Alder</th>
+            </tr>
+            <% classes.forEach(result => { %>
+            <tr>
+              <td><button data-classoff="<%= result.id %>" class="fas fa-minus-circle deleteButtons"></i></button></td>
+              <td><%= result.id %></td>
+              <td><%= result.title %> </td>
+              <td><%= result.level %></td>
+              <td> <%= result.age %></td>
+            </tr>
+            <% }); %>
+          </table>  
+          <a href="#" class="button" onclick="openUpdateForm(<%= userInfo[0].fk_user %>)">Rediger</a>
+          <a class="button" href="/logout">Log ud</a> 
+    </section>
+
+    <!-- Pop-up til update af profil -->
+    <div id="updateTo" class="updateForm">
+        <a href="" onclick="closeUpdateForm()"><i class="fas fa-times"></i></a>
+        <h2>Redigér Profil</h2>
+        <form class="formUpdateForm">
+            <input type="hidden" name="id" class="updateID">
+            <label for="name">Fornavn</label><input type="text" name="firstNameUpdate">
+            <label for="name">Efternavn</label><input type="text" name="lastNameUpdate">
+            <label for="name">Adresse</label><input type="text" name="addressUpdate">
+            <label for="name">Postnummer</label><input type="text" name="zipCodeUpdate">
+            <label for="name">By</label><input type="text" name="cityUpdate">
+            <label for="name">Tlf</label><input type="text" name="phoneUpdate">
+            <label for="name">Elev</label><input type="text" name="studentsUpdate">
+            <button type="submit">Gem Profil</button>
+        </form>
+    </div>
+</main>
+
+<!--Et fetch som sender opdatering fra profilformularen til vores route-->
+<script>
+        document.querySelector('.formUpdateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                'id' : this.id.value,
+                'firstname' : this.firstNameUpdate.value,
+                'lastname' : this.lastNameUpdate.value,
+                'address' : this.addressUpdate.value,
+                'zipcode' : this.zipCodeUpdate.value,
+                'city' : this.cityUpdate.value,
+                'phone' : this.phoneUpdate.value,
+                'students' : this.studentsUpdate.value
+            };
+    
+            fetch('/profile', {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+        });
+    </script>
+
+<!--Når vi trykker på deletebutton, sender vi et delete request over til vores route, med hold idét-->
+    <script>
+       const deleteButtons = document.querySelectorAll('.deleteButtons');
+    deleteButtons.forEach(btn => {
+    btn.addEventListener('click', event => {
+        const classId = event.target.dataset.classoff;
+        fetch(`/profile/${classId}`, {
+            'method': 'DELETE',
+            headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                }
+        })
+        .then(response => {
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        });
+    })
+})
+    </script>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

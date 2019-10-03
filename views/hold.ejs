@@ -1,0 +1,17 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<main role="main">
+	<section id="wrapperList">
+		<div class="box">
+        <% results.forEach(result => { %>
+        <div class="listStyle">
+        	<img src="/media<%= result.picture%>">
+            <h2><%= result.name %></h2>
+            <p><%= result.description %></p>
+            </div> 
+        <%}); %>
+    </section> 
+    	</div> 
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

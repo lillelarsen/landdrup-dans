@@ -1,0 +1,107 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+	<section>
+		<h1><%= title %></h1>
+		<% results.forEach(result => { %>
+			<div class="adminFrontpage">
+				<div class="editImage">
+					<p>Billede på forsiden</p>
+					<img class="currentImage" src="/media/<%= result.hero_image %>"></img>
+
+				<form class="updateHero" enctype="multipart/form-data">
+					<label for="uploadfield">Billede</label>
+					<input type="file" name="picture" id="uploadfield" placeholder="Billedets sti, f.eks.: billede.jpg">
+					<button type="submit">Opdater billedet</button>
+				</form>
+
+				</div>
+				<div class="updateFront">
+					<h2>Redigér tekster</h2>
+					<form class="formUpdateFront">
+						<fieldset>
+							<label for="header_1">Kolonne overskrift 1</label><input type="text" name="head1" id="header_1" value="<%= result.header_1 %>">
+							<label for="text_1">Kolonne tekst 1</label><textarea name="text1" id="text_1" cols="30" rows="10"><%= result.text_1 %></textarea>
+						</fieldset>
+						<fieldset>
+							<label for="header_2">Kolonne overskrift 2</label><input type="text" name="head2" id="header_2" value="<%= result.header_2 %>">
+							<label for="text_2">Kolonne tekst 2</label><textarea name="text2" id="text_2" cols="30" rows="10"><%= result.text_2 %></textarea>
+						</fieldset>
+						<fieldset>	
+							<label for="header_3">Kolonne overskrift 3</label><input type="text" name="head3" id="header_3" value="<%= result.header_3 %>">
+							<label for="text_3">Kolonne tekst 3</label><textarea name="text3" id="text_3" cols="30" rows="10"><%= result.text_3 %></textarea>
+						</fieldset>
+						<button type="submit" class="button">Gem tekst</button>
+					</form>
+				</div>
+				<div class="frontPreview">
+					<div class="editText">
+						<p>Første kolonne med tekst på forsiden</p>
+						<h2><%= result.header_1 %></h2>
+						<p><%= result.text_1 %></p>
+					</div>
+					<div class="editText">
+						<p>Anden kolonne med tekst på forsiden</p>
+						<h2><%= result.header_2 %></h2>
+						<p><%= result.text_2 %></p>
+					</div>
+					<div class="editText">
+						<p>Tredje kolonne med tekst på forsiden</p>
+						<h2><%= result.header_3 %></h2>
+						<p><%= result.text_3 %></p>
+					</div>
+				</div>
+			</div>
+		<% }); %>
+	</section>
+</main>
+<script>
+	document.querySelector('.formUpdateFront').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const data = {
+			'head1': this.head1.value,
+			'head2': this.head2.value,
+			'head3': this.head3.value,
+			'text1': this.text1.value,
+			'text2': this.text2.value,
+			'text3': this.text3.value
+		};
+		
+		fetch('/admin', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8'
+			},
+			body: JSON.stringify(data)
+		})
+		.then(response => {
+			if (response.status === 200) {
+				window.location.reload(true);
+			} else {
+				console.log('Noget gik galt');
+			}
+		})
+	});
+</script>
+<script>
+	//virker ikke endnu
+	document.querySelector('.updateHero').addEventListener('submit', function(event) {
+		event.preventDefault();
+		
+		const form = new FormData(document.querySelector('.updateHero'));
+		console.table(form)
+		fetch('/admin/picture', {
+			method: 'PATCH',
+			body: form
+		})
+		.then(response => {
+			if (response.status === 200) {
+				window.location.reload(true);
+			} else {
+				console.log('Noget gik galt');
+			}
+		})
+	});
+</script>
+<% include ../partials/after-footer.ejs %>

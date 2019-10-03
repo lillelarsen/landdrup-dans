@@ -1,0 +1,22 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<main tabindex="0" role="main" class="main" id="maincontent">
+    <% results.forEach(result => { %>
+    <img class="hero_image" src="media/<%= result.hero_image %>" alt="Glade dansepartnere">
+    <section>
+        <h2><%= result.header_1 %></h2>
+        <p><%= result.text_1 %></p>
+    </section>
+    <section>
+        <h2><%= result.header_2 %></h2>
+        <p><%= result.text_2 %></p>
+    </section>
+    <section>
+        <h2><%= result.header_3 %></h2>
+        <p><%= result.text_3 %></p>
+    </section>
+    <a href="/sign-up" class="callToAction">Meld dig til et hold</a>
+    <% }); %>
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

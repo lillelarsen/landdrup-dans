@@ -1,0 +1,166 @@
+
+button, .button {
+    border: var(--button-border);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0.5em 1.5em; 
+}
+
+.button {
+    display: inline-block;
+    max-width: 4em;
+    text-decoration: none;
+}
+
+
+#jumpToContent {
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+}
+
+
+#jumpToContent:focus, #jumpToContent:active {
+    color: #000000;
+    background-color:#fff;
+    border-radius: 15px;
+    font-size:1.2em;
+}
+
+.headerDiv i {
+    font-size: 2em;
+    color: var(--purple);
+}
+
+.fa-facebook, .fa-instagram {
+    font-size: 50px; 
+    margin-top: 10px;
+}
+.someLink {
+    color: var(--purple);
+}
+
+h3 {
+    color: white;
+}
+
+.adminPrimaryNavigation li a {
+    text-decoration: none;
+    font-size: 1.1875em;
+    color: #fff;
+}
+.adminPrimaryNavigation li a:hover {
+    color: #333;
+}
+.adminHeaderLogout a:hover {
+    color: #999;
+}
+
+.loginMain i {
+    font-size: 2em;
+}
+.logoMobile, .logoAdmin {
+    height: 2em;
+    width: auto;
+}
+.logo {
+    display: none;
+    height: 3em;
+    width: auto;
+}
+#login_icon {
+    padding: 0 0.75em 0 0.25em;
+}
+
+.loginMain h2,
+.loginMain i {
+    color: #ffffff;
+}
+
+.loginMain button,
+.loginMain input {
+    background-color: #ffffff;
+    outline: none;
+    border: var(--button-border);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.callToAction {
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+    border: var(--button-border);
+    border-radius: 10px;
+}
+.callToAction:hover {
+    color: var(--purple);
+}
+
+
+/*-----------profileMain-----------*/
+th, td, tr {
+    border: solid 1px black;
+    padding: 5px;
+}
+
+.profileMain {
+    
+    margin: 0 27vw;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.profil_table {
+    margin-bottom: 10px;
+}
+
+table img {
+    max-width: 100px;
+    height: auto;
+}
+.adminPage table td {
+    padding: 0;
+    cursor: pointer;
+}
+.adminPage table tbody tr:nth-child(odd) {
+    background: #999;
+}
+.adminPage th:nth-of-type(1),
+.adminPage td:nth-of-type(1),
+.adminPage th:nth-of-type(2),
+.adminPage td:nth-of-type(2){
+    width: 2em;
+    padding: 0 0.2em;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+@media screen and (min-width: 40em) {
+    .adminPage table td {
+        padding-left: 0.5em;
+    }
+}
+.adminPage table tbody tr:hover {
+    background-color: #333333;
+    color: #fff;
+}
+.adminPage .fa-edit {
+    color: blue;
+    cursor: pointer;
+}
+.adminPage .fa-trash-alt {
+    color: red;
+    cursor: pointer;
+}
+.currentImage {
+    max-width: 300px;
+    height: auto;
+}

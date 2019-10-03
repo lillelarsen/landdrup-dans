@@ -1,0 +1,98 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+    <section>
+
+        <a href="" onclick="openForm()">Opret</a>
+        <table>
+            <th>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Stilarter</th>
+                    <th>Beskrivelse</th>
+                    <th>Billede</th>
+                </tr>
+            </th>
+
+            <th>
+                <% results.forEach(result => { %>
+                <tr>
+                    
+                    
+                    <td>
+                        <i onclick="openUpdateForm(<%= result.id %>)" data-id="<%= result.id %>" data-category="style" class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <i data-id="<%= result.id %>" data-category="style" class="fas fa-trash-alt"></i>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.title %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.description %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <img src="/media/<%= result.picture %>" alt="">
+                    </td>
+
+                </tr>
+                <% }); %>
+            </th>
+
+        </table>
+
+    </section>
+    <!-- Pop-up til tilføj stilart -->
+    <div id="addTo" class="addForm">
+        <a href="" onclick="closeForm()"><i class="fas fa-times"></i></a>
+        <h2>Tilføj Stilart</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="name">Navn</label><input type="text" name="name" placeholder="Stilartens navn">
+            <label for="uploadfield">Billede</label><input type="file" name="picture" id="uploadfield" placeholder="Billedets sti, f.eks.: billede.jpg">
+            <label for="description">Beskrivelse</label><textarea name="description" cols="30" rows="10" placeholder="Beskrivelse"></textarea>
+            <button type="submit">Gem Stilart</button>
+        </form>
+    </div>
+    <!-- Pop-up til update af stilarter -->
+     <div id="updateTo" class="updateForm">
+        <a href="" onclick="closeUpdateForm()"><i class="fas fa-times"></i></a>
+        <h2>Redigér Stilart</h2>
+        <form class="formUpdateForm">
+            <input type="hidden" name="id" class="updateID">
+            <label for="name">Stilartens navn</label><input type="text" name="nameUpdate" placeholder="Aldersgruppe navn">
+            <label for="picture">Billede</label><input type="text" name="pictureUpdate" placeholder="Billedets sti, f.eks.: billede.jpg">
+            <label for="description">Stilartens Beskrivelse</label><textarea name="descriptionUpdate" cols="30" rows="10" placeholder="Aldersgruppe Beskrivelse"></textarea>
+            <button type="submit">Gem Stilart</button>
+        </form>
+    </div>
+</main>
+<script src="/scripts/deleteButtons.js" defer></script>
+<script>
+        document.querySelector('.formUpdateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                'id' : this.id.value,
+                'name' : this.nameUpdate.value,
+                'picture' : this.pictureUpdate.value,
+                'description' : this.descriptionUpdate.value
+            };
+    
+            fetch('/admin/style', {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+        });
+    </script>
+<% include ../partials/after-footer.ejs %>

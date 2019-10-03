@@ -1,0 +1,96 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+    <section>
+
+        <a href="#" onclick="openForm()">Opret</a>
+        <table>
+            <th>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Instruktører</th>
+                    <th>Beskrivelse</th>
+                    <th>Billede</th>
+                </tr>
+            </th>
+
+            <th>
+                <% results.forEach(result => { %>
+                <tr>
+                    <td>
+                        <i onclick="openUpdateForm(<%= result.id %>)" data-id="<%= result.id %>" data-category="instructors" class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <i data-id="<%= result.id %>" data-category="instructors" class="fas fa-trash-alt"></i>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.name %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.description %>
+                    </td onclick="openUpdateForm(<%= result.id %>)">
+                    <td><img src="/media/<%= result.picture %>" alt=""></td>
+
+                </tr>
+                <% }); %>
+            </th>
+
+        </table>
+
+    </section>
+    <!-- Pop-up til tilføj instruktør -->
+    <div id="addTo" class="addForm">
+        <a href="" onclick="closeForm()"><i class="fas fa-times"></i></a>
+        <h2>Tilføj Instruktør</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="name">Navn</label><input type="text" name="name" placeholder="Instruktørerens navn">
+            <label for="uploadfield">Billede</label><input type="file" name="picture" id="uploadfield" placeholder="Billedets sti, f.eks.: billede.jpg">
+            <label for="description">Beskrivelse</label><textarea name="description" cols="30" rows="10" placeholder="Beskrivelse"></textarea>
+            <button type="submit">Gem instruktør</button>
+        </form>
+    </div>
+ <!-- Pop-up til update instruktør -->
+    <div id="updateTo" class="updateForm">
+            <a href="" onclick="closeUpdateForm()"><i class="fas fa-times"></i></a>
+            <h2>Redigér Instruktør</h2>
+            <form class="formUpdateForm">
+                <input type="hidden" name="id" class="updateID">
+                <label for="name">Navn</label><input type="text" name="name" placeholder="Instruktørerens navn">
+                <label for="image">Billede</label><input type="text" name="image" placeholder="Billedets sti, f.eks.: billede.jpg">
+                <label for="description">Beskrivelse</label><textarea name="description" cols="30" rows="10" placeholder="Beskrivelse"></textarea>
+                <button type="submit">Gem instruktør</button>
+            </form>
+    </div>
+</main>
+
+<script src="/scripts/deleteButtons.js" defer></script>
+<script>
+        document.querySelector('.formUpdateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = {
+                'id': this.id.value,
+                'name': this.name.value,
+                'description': this.description.value,
+                'image': this.image.value
+            };
+            
+            fetch('/admin/instructors', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.status === 200) {
+                    window.location.reload(true);
+                } else {
+                    console.log('Noget gik galt');
+                }
+            })
+        });
+    </script>
+
+<% include ../partials/after-footer.ejs %>

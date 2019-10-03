@@ -1,0 +1,31 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<main tabindex="0" class="sign_up" role="main">
+    <h1><%= title %></h1>
+    <p><%= content %></p>
+        <p class="error"><%= (typeof errorMessage != 'undefined') ? errorMessage : '' %></p>
+    <form id="signupForm" action="/sign-up" method="post">
+        <label for="username" id="LabelUsername">Brugernavn:</label><input type="text" name="username" id="InputUsername" placeholder="Brug din e-mail" value="<%= (typeof username != 'undefined') ? username : '' %>">
+        <p id="FejlBeskedUsername"></p>
+        <label for="password" id="LabelPassword">Kodeord:</label><input type="password" name="password" id="InputPassword" placeholder="Kodeord" value="<%= (typeof password != 'undefined') ? password : '' %>">
+        <p id="FejlBeskedPassword"></p>
+        <label for="firstName" id="LabelFirstName">Fornavn:</label><input type="text" name="firstName" id="InputFirstName" placeholder="Fornavn" value="<%= (typeof firstName != 'undefined') ? firstName : '' %>">
+        <p id="FejlBeskedFirstName"></p>
+        <label for="lastName" id="LabelLastName">Efternavn:</label><input type="text" name="lastName" id="InputLastName" placeholder="Efternavn" value="<%= (typeof lastName != 'undefined') ? lastName : '' %>">
+        <p id="FejlBeskedLastName"></p>
+        <label for="address" id="LabelAddress">Adresse:</label><input type="text" name="address" id="InputAddress" placeholder="Adresse" value="<%= (typeof address != 'undefined') ? address : '' %>">
+        <p id="FejlBeskedAddress"></p>
+        <label for="zipCode" id="LabelZipCode">Postnummer:</label><input type="text" name="zipCode" id="InputZipCode" placeholder="Postnr." value="<%= (typeof zipCode != 'undefined') ? zipCode : '' %>">
+        <p id="FejlBeskedZipCode"></p>
+        <label for="city" id="LabelCity">By:</label><input type="text" name="city" id="InputCity" placeholder="By" value="<%= (typeof city != 'undefined') ? city : '' %>">
+        <p id="FejlBeskedCity"></p>
+        <label for="phone" id="LabelPhone">Tlf.:</label><input type="text" name="phone" id="InputPhone" placeholder="Tlf. nummer" value="<%= (typeof phone != 'undefined') ? phone : '' %>">
+        <p id="FejlBeskedPhone"></p>
+        <label for="student" id="LabelStudent">Barn (hvis du tilmelder et barn):</label><input type="text" name="student" id="InputStudent" placeholder="Skriv deres fulde navn her" value="<%= (typeof student != 'undefined') ? student : '' %>">
+        <p id="FejlBeskedStudent"></p>
+        <input type="hidden" name="customer" value="3">
+        <button type="submit" id="InputSend">Send</button>
+    </form>
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

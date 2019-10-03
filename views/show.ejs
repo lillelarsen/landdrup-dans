@@ -1,0 +1,13 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+
+<main>
+<div id="singleStyle">
+	<img src="/media/<%= results.picture%>">
+	<h2><%= results.title %></h2>
+	<p><%= results.description %></p>
+</div>
+</main>
+
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

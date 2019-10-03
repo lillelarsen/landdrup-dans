@@ -1,0 +1,319 @@
+html, body {
+    margin: 0;
+}
+
+#jumpToContent {
+    left:-999px;
+    position:absolute;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    z-index:-999;
+}
+#jumpToContent:focus, #jumpToContent:active {
+    left: auto;
+    top: auto;
+    width: 30%;
+    height: auto;
+    overflow:auto;
+    margin: 10px 35%;
+    padding:5px;
+    text-align:center;
+    z-index:999;
+}
+
+header {
+    width: 100%;
+}
+.headerDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em 1.5em;
+}
+
+nav {
+    padding: 1em 1.5em;
+}
+nav ul {
+    padding: 0;
+    margin: 0;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+.main, .sign_up, .contact {
+    margin: 1.5em;
+}
+.main h2 {
+    text-align: center;
+}
+main:focus, footer:focus {
+    outline: none;
+}
+.hero_image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.callToAction {
+    margin: auto;
+    padding: 1em 1.5em;
+}
+
+.footerContainer {
+    width: 320px;
+    text-align: center;
+}
+.siteFooter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #2c2e35;
+    padding: 2em;
+}
+.fa-facebook {
+    margin-right: 30px;
+}
+
+#wrapperList {
+	display: grid;
+	grid-template-columns: 1fr 5fr 1fr;
+}
+
+/*Putter vores list items i en div og får dem til at fylde 2/3 af siden*/
+.box {
+	grid-column: 2/3;
+}
+/*Layout for hver enkelt stilart*/
+#singleStyle  {
+    margin:2em;
+    display: grid;
+    grid-template-columns: 5em 1fr 1fr;
+    grid-template-areas: 
+    ". img ."
+    ". h2 . "
+    ". p .";
+}
+
+#singleStyle h2{
+    grid-area: h2;
+}
+#singleStyle img{
+    grid-area: img;
+    width: 70%;
+}
+#singleStyle p {
+    grid-area: p;
+}
+
+/*Style til tilmelding*/
+
+#hold_reg {
+    margin: 4em;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+
+}
+#hold_reg h3 {
+    color: black;
+}
+
+.hold_div {
+    border:1px solid lightgrey;
+    padding-bottom: 2em;
+    background-color: #fdf2f2;
+}
+
+
+/*Laver orden og mellemrum imellem vores list items  + border i bunden*/
+.listStyle {
+	margin-bottom: 5em;
+	border-bottom:1px solid var(--purple);
+}
+.listStyle:first-child {
+	margin-top: 5em;
+}
+/*Hvor meget vores list billede skal fylde*/
+.listStyle img {
+	width: 20%;
+}
+
+#adminWrapper {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+.adminSiteHeader{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    grid-column: 1/-1;
+    padding: 0 1.5em;
+    width: auto;
+}
+.adminPrimaryNavigation {
+    grid-column: 1/2;
+}
+@media screen and (min-width: 900px) {
+    #adminWrapper {
+        grid-template-columns: minmax(auto, 12.5em) auto;
+        grid-template-rows: auto;
+    }
+    .adminPrimaryNavigation {
+        grid-column: 1/2;
+    }
+}
+.adminPrimaryNavigation li a {
+    display: inline-block;
+    margin-bottom: 0.3em;
+    text-align: center;
+}
+
+#loginForm {
+    display: none;
+    text-align: center;
+    width: 320px;
+    height: 320px;
+    position: fixed;
+    top: 5%;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    z-index: 9;
+}
+.loginMain form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login {
+    display: flex;
+    align-items: center;
+}
+.login h3:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.loginMain label,
+.loginMain button,
+.loginMain i {
+    display: block;
+    margin-top: 0.5em;
+}
+.loginMain i {
+    text-align: end;
+    margin: 0.5em 1em;
+}
+.loginMain button,
+.loginMain input {
+    padding: 1em 2em;
+}
+
+/*Signup*/
+
+.register {
+    color: white;
+    padding-right: .3em;
+    text-decoration: none;
+    font-weight: bold;
+}
+.register:hover {
+ text-decoration: underline;
+}
+
+#signupForm, #contactForm {
+    display: flex;
+    flex-direction: column;
+}
+#signupForm button, #contactForm button {
+    width: 25%;
+    align-self: center;
+}
+
+h3 {
+    margin: 0;
+}
+
+@media screen and (min-width: 1280px) {
+    .headerDiv {
+        padding: 0.5em 5em;
+    }
+    #login_icon {
+        padding-right: 0;
+    }
+    nav {
+        padding: 1em 5em;
+    }
+    nav ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .main {
+        flex-direction: unset;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 2.5em 5em;
+    }
+    .main section {
+        width: 30%;
+    }
+    .logoMobile {
+        display: none;
+    }
+    .logo {
+        display: block;
+    }
+    #menu_icon {
+        display: none;
+    }
+    .adminSiteHeader {
+        padding: 0 4em;
+    }
+    .adminPrimaryNavigation {
+        padding: 1em 4em;
+    }
+    .sign_up, .contact {
+        margin: 2.5em 5em;
+    }
+    #signupForm, #contactForm {
+        width: 50%;
+        margin: auto;
+    }
+    .sign_up h1, .sign_up p,
+    .contact h1, .contact p {
+        text-align: center;
+    }
+}
+@media screen and (max-width: 900px) {
+#hold_reg {
+    margin: 4em;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+
+}
+}
+@media screen and (max-width: 500px) {
+    #hold_reg {
+    margin: 4em;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+
+}
+}

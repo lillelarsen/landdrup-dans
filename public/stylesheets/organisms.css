@@ -1,0 +1,86 @@
+body {
+    font-family: Arimo, Arial, Helvetica, sans-serif;
+}
+
+main:focus, footer:focus {
+    outline: 0;
+}
+
+.headerDiv {
+    background-color: var(--dark-blue);
+}
+nav {
+    background-color: var(--light-blue);
+}
+nav ul {
+    list-style: none;
+}
+
+.footerContainer {
+    color: #9da1b6;
+}
+
+#loginForm {
+    border-radius: 15px;
+    background: var(--purple);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.adminSiteHeader {
+    background-color: var(--dark-blue);
+}
+.adminPrimaryNavigation {
+    background-color: #9da1b6;
+}
+.adminPrimaryNavigation ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.updateForm form,
+.frontPreview,
+.updateFront form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.updateForm button {
+    align-self: flex-end;
+}
+
+#addTo,
+#updateTo {
+    display: none;
+}
+.addForm,
+.updateForm {
+    width: 18.75em;
+    padding: 2em 1em;
+    background-color: white;
+    border: #999 solid 1px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    box-shadow: 5px 10px #333;
+    position: fixed;
+    top: 5%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 9;
+}
+
+.addForm form,
+.updateForm form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

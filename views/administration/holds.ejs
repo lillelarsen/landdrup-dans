@@ -1,0 +1,142 @@
+<% include ../partials/head.ejs %>
+<% include ./partials/admin-header.ejs %>
+<% include ./partials/admin-primaryNavigation.ejs %>
+<main role="main" class="adminPage">
+    <section>
+
+            <a href="#" onclick="openForm()">Opret</a>
+        <table>
+            <th>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Hold nr</th>
+                    <th>Pris</th>
+                    <th>Stilart</th>
+                    <th>Aldersgruppe</th>
+                    <th>Niveau</th>
+                    <th>Instruktør</th>
+                    <th>Antal tilmeldte</th>
+                </tr>
+            </th>
+
+            <th>
+                <% results.forEach(result => { %>
+                <tr>
+                    <td>
+                        <i onclick="openUpdateForm(<%= result.id %>)" data-id="<%= result.id %>" data-category="hold" class="fas fa-edit"></i>
+                    </td>
+                    <td>
+                        <i data-id="<%= result.id %>" data-category="hold" class="fas fa-trash-alt"></i>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.id %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.price %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.style_title %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.age_name %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.level_name %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.instructor_name %>
+                    </td>
+                    <td onclick="openUpdateForm(<%= result.id %>)">
+                        <%= result.signed %>
+                    </td>
+                </tr>
+                <% }); %>
+            </th>
+
+        </table>
+
+    </section>
+ <!-- Pop-up til tilføj hold -->
+ <div id="addTo" class="addForm">
+    <a href="" onclick="closeForm()"><i class="fas fa-times"></i></a>
+    <h2>Tilføj et hold</h2>
+    <form action="" method="post">
+        <label for="pris">Pris</label><input type="text" name="price" placeholder="Pris">
+        <label for="style">Stilart</label>
+        <div name="styles" id="style">
+
+        </div>
+        <label for="ageGroup">Aldersgruppe</label>
+        <div name="ageGroups" id="ageGroup">
+
+        </div>
+        <label for="level">Niveau</label>
+        <div name="levels" id="level">
+
+        </div>
+        <label for="instructor">Instruktør</label>
+        <div name="instructors" id="instructor">
+
+        </div>
+        <button type="submit">Gem hold</button>
+    </form>
+</div>
+ <!-- Pop-up til update af hold -->
+ <div id="updateTo" class="updateForm">
+    <a href="" onclick="closeUpdateForm()"><i class="fas fa-times"></i></a>
+    <h2>Redigér hold</h2>
+    <form class="formUpdateForm">
+        <input type="hidden" name="id" class="updateID">
+        <label for="pris">Pris</label><input type="text" name="price" placeholder="Pris">
+        <label for="style">Stilart</label>
+        <div name="styles" id="styleUpdate">
+
+        </div>
+        <label for="ageGroup">Aldersgruppe</label>
+        <div name="ageGroups" id="ageGroupUpdate">
+
+        </div>
+        <label for="level">Niveau</label>
+        <div name="levels" id="levelUpdate">
+
+        </div>
+        <label for="instructor">Instruktør</label>
+        <div name="instructors" id="instructorUpdate">
+
+        </div>
+        <button type="submit">Gem hold</button>
+    </form>
+</div>
+</main>
+<script src="/scripts/dynamicSelect.js" ></script>
+<script>
+	document.querySelector('.formUpdateForm').addEventListener('submit', function(event) {
+		event.preventDefault();
+		const data = {
+            'id': this.id.value,
+			'price': this.price.value,
+			'style': this.styleUpdate.value,
+			'ageGroup': this.ageGroupUpdate.value,
+			'level': this.levelUpdate.value,
+			'instructor': this.instructorUpdate.value
+		};
+		
+		fetch('/admin/hold', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8'
+			},
+            body: JSON.stringify(data)
+		})
+		.then(response => {
+			if (response.status === 200) {
+				window.location.reload(true);
+			} else {
+				console.log('Noget gik galt');
+			}
+		})
+	});
+</script>
+<script src="/scripts/deleteButtons.js" defer></script>
+<% include ../partials/after-footer.ejs %>
